@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>من محمد ❤️</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Great+Vibes&family=Dancing+Script:wght@700&family=Poppins:wght@500;600&family=Cairo:wght@600;800&family=Lalezar&family=Rakkas&family=Reem+Kufi:wght@500;700&display=swap">
+<style>
+:root{
+  --wine:#1c0710; --deep:#2e0b19; --red:#ff0a2a; --ember:#b30018; --paper:#fff4ef; --ink:#3a0d18;
+  --ar:'Aref Ruqaa','Amiri','Noto Naskh Arabic',serif; --script:'Great Vibes','Snell Roundhand',cursive;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{background:radial-gradient(120% 90% at 50% 0%,var(--deep),var(--wine) 70%);color:var(--paper);font-family:var(--ar);overflow-x:hidden;-webkit-tap-highlight-color:transparent}
+canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+button{font:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible{outline:3px solid #fff;outline-offset:3px}
+
+/* ---------- الظرف ---------- */
+#intro{position:fixed;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;background:radial-gradient(120% 90% at 50% 0%,var(--deep),var(--wine) 70%);transition:opacity .9s,visibility .9s}
+#intro.gone{opacity:0;visibility:hidden}
+.env{position:relative;width:min(78vw,320px);aspect-ratio:1.5;border:0;padding:0;background:none;perspective:900px}
+.env .back{position:absolute;inset:0;background:#8d0f24;border-radius:10px;box-shadow:0 20px 50px #0009}
+.env .card{position:absolute;left:8%;right:8%;top:8%;bottom:8%;background:var(--paper);border-radius:6px;color:var(--ink);display:flex;align-items:center;justify-content:center;font-size:28px;transition:transform 1s .5s cubic-bezier(.2,.8,.2,1)}
+.env .front{position:absolute;inset:0;background:linear-gradient(135deg,#c4142f,#a30d22);border-radius:10px;clip-path:polygon(0 0,50% 58%,100% 0,100% 100%,0 100%)}
+.env .flap{position:absolute;left:0;right:0;top:0;height:60%;background:#d81b37;clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform .7s}
+.env .seal{position:absolute;left:50%;top:52%;width:46px;height:46px;margin:-23px 0 0 -23px;z-index:2;transition:opacity .3s;animation:beat 1.3s infinite}
+.env.open .flap{transform:rotateX(180deg);z-index:0}
+.env.open .card{transform:translateY(-58%)}
+.env.open .seal{opacity:0}
+.open-btn{background:var(--red);color:#fff;border:0;border-radius:999px;padding:14px 34px;font-size:22px;box-shadow:0 8px 30px #ff0a2a66;transition:transform .2s}
+.from{direction:rtl;margin:0;text-align:center;line-height:1}
+.from small{display:block;font-family:'Aref Ruqaa','Amiri',serif;font-weight:700;font-size:30px;letter-spacing:0;color:#ffd0d6;margin-bottom:6px}
+.from b{display:block;padding:0 .3em;font-family:'Rakkas','Lalezar','Cairo',sans-serif;font-weight:400;font-size:45px;line-height:1.2;background:linear-gradient(90deg,#ff4d63,#ffd0d6 50%,#ff4d63);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;filter:drop-shadow(0 0 14px #ff0a2a88);animation:shine 4s linear infinite}
+@keyframes shine{to{background-position:-200% 0}}
+.open-btn:active{transform:scale(.95)}
+
+/* ---------- المشهد ---------- */
+main{position:relative;z-index:1;min-height:100%;display:flex;flex-direction:column;align-items:center;gap:22px;padding:34px 20px 60px;text-align:center}
+.to{font-size:26px;min-height:1em;margin:0}
+.heart-wrap{width:min(78vw,300px);border:0;background:none;padding:0;position:relative;animation:beat 1.4s infinite;transition:scale .3s}
+.heart-wrap svg{width:100%;height:auto;overflow:visible;filter:drop-shadow(0 0 22px #ff0a2a88)}
+#hp{fill:var(--red);fill-opacity:0;stroke:#ff4d63;stroke-width:3;stroke-dasharray:1;stroke-dashoffset:1;stroke-linejoin:round}
+body.play #hp{animation:draw 2.6s ease forwards,fillin 1.2s 2.4s forwards}
+#lv{font-family:var(--script);font-size:38px;fill:#fff;opacity:0}
+body.play #lv{animation:fadein 1.2s 3s forwards}
+.count{font-size:18px;opacity:.85;margin-top:-6px}
+.letter{max-width:420px;font-size:26px;line-height:1.7;min-height:3.4em;margin:0}
+.btn{background:#ffffff14;color:var(--paper);border:1.5px solid #ffffff40;border-radius:999px;padding:10px 24px;font-size:19px}
+.btn:active{transform:scale(.96)}
+.box{width:min(92vw,420px);border:1.5px solid #ffffff26;border-radius:18px;padding:18px 20px;background:#ffffff0a}
+.box p{margin:0 0 12px;font-size:22px}
+input[type=range]{width:100%;accent-color:var(--red);height:32px}
+.yn{display:flex;gap:14px;justify-content:center;align-items:center;min-height:56px}
+.yes{position:relative;z-index:2;background:var(--red);border:0;color:#fff;border-radius:999px;padding:12px 34px;font-size:21px}
+.no{background:#ffffff18;border:1.5px solid #ffffff40;color:var(--paper);border-radius:999px;padding:12px 30px;font-size:21px;transition:transform .25s}
+.reply{min-height:1.6em;font-size:24px;margin-top:10px}
+.hide{opacity:0;pointer-events:none}
+.win{position:fixed;inset:0;z-index:6;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:#1c0710d9;text-align:center;padding:24px;transition:opacity .5s}
+.win .big{font-size:120px;line-height:1;color:var(--red);filter:drop-shadow(0 0 30px #ff0a2a);animation:beat 1s infinite}
+.win .wt{font-size:38px;margin:0}
+.win .ws{font-size:26px;margin:0 0 14px}
+@keyframes beat{0%,100%{transform:scale(1)}12%{transform:scale(1.06)}24%{transform:scale(1)}36%{transform:scale(1.04)}}
+@keyframes draw{to{stroke-dashoffset:0}}
+.heart-wrap svg{transform-origin:50% 55%}
+.a0{animation:popA .55s}.a1{animation:spinA .8s}.a2{animation:wigA .6s}.a3{animation:jumpA .7s}
+@keyframes popA{40%{transform:scale(1.28)}70%{transform:scale(.94)}}
+@keyframes spinA{to{transform:rotateY(360deg) scale(1.1)}}
+@keyframes wigA{20%{transform:rotate(-14deg)}45%{transform:rotate(12deg)}70%{transform:rotate(-7deg)}}
+@keyframes jumpA{35%{transform:translateY(-38px) scale(1.08)}65%{transform:translateY(0) scale(.92,1.06)}}
+.ring{position:fixed;width:20px;height:20px;margin:-10px 0 0 -10px;border:3px solid #ff4d63;border-radius:50%;pointer-events:none;z-index:3;animation:ringA .8s ease-out forwards}
+@keyframes ringA{to{transform:scale(9);opacity:0}}
+@keyframes fillin{to{fill-opacity:1}}
+@keyframes fadein{to{opacity:1}}
+@media (prefers-reduced-motion:reduce){.heart-wrap,.env .seal,.from b{animation:none}}
+</style>
+</head>
+<body>
+<canvas id="fx"></canvas>
+
+<section id="intro">
+  <div class="from"><small>✦ من ✦</small><b>محمد</b></div>
+  <button class="env" id="env" aria-label="افتحي الرسالة">
+    <div class="back"></div>
+    <div class="card">♥</div>
+    <div class="front"></div>
+    <div class="flap"></div>
+    <svg class="seal" viewBox="0 0 200 180"><path d="M100 170C20 110 0 60 40 30 70 8 100 30 100 50 100 30 130 8 160 30 200 60 180 110 100 170Z" fill="#ff0a2a" stroke="#fff" stroke-width="8"/></svg>
+  </button>
+  <button class="open-btn" id="openBtn">اضغطي لفتح الرسالة</button>
+</section>
+
+<main>
+  <p class="to" id="to"></p>
+  <button class="heart-wrap" id="heart" aria-label="اضغط على القلب">
+    <svg viewBox="0 0 200 180">
+      <path id="hp" pathLength="1" d="M100 170C20 110 0 60 40 30 70 8 100 30 100 50 100 30 130 8 160 30 200 60 180 110 100 170Z"/>
+      <text id="lv" x="100" y="102" text-anchor="middle">Love You</text>
+    </svg>
+  </button>
+  <div class="count" id="count">اضغطي على القلب</div>
+
+  <p class="letter" id="letter"></p>
+  <button class="btn" id="next">رسالة تانية</button>
+
+  <div class="box">
+    <p>بتحبني قد إيه؟</p>
+    <input type="range" id="meter" min="0" max="100" value="10" aria-label="مقياس الحب">
+    <div class="reply" id="meterTxt">حرّكي المقياس</div>
+  </div>
+
+  <div class="box">
+    <p>سؤال أخير: بتحبني؟</p>
+    <div class="yn" id="yn">
+      <button class="yes" id="yes">أيوه</button>
+      <button class="no" id="no">لأ</button>
+    </div>
+    <div class="reply" id="ynTxt"></div>
+  </div>
+</main>
+
+<div class="win hide" id="win" role="dialog" aria-label="مفاجأة">
+  <div class="big">♥</div>
+  <p class="wt">عشرين ضغطة! 🎉</p>
+  <p class="ws">كده عرفت إنك بتحبني ❤️</p>
+  <button class="yes" id="winBtn">كمّلي</button>
+</div>
+
+<script>
+const NAME = "";  // اكتب الاسم هنا لو عايز، وسيبه فاضي عشان يظهر "إلى" بس
+const MSGS = [
+  "وجودك في حياتي أحلى حاجة حصلتلي.",
+  "كل يوم معاكي أحلى من اللي قبله.",
+  "ضحكتك بتظبّط يومي كله.",
+  "وسط زحمة الدنيا، وجودك هو الراحة."
+];
+
+/* ---------- قلوب على الكانفس ---------- */
+const cv = document.getElementById('fx'), cx = cv.getContext('2d');
+const HP = new Path2D("M100 170C20 110 0 60 40 30 70 8 100 30 100 50 100 30 130 8 160 30 200 60 180 110 100 170Z");
+const REDS = ['#ff0a2a','#e6001e','#ff3b55','#c8001a','#ff6b7d'];
+const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+let W, H, dpr, P = [];
+function size(){ dpr = devicePixelRatio || 1; W = innerWidth; H = innerHeight; cv.width = W*dpr; cv.height = H*dpr; }
+addEventListener('resize', size); size();
+const rnd = (a,b) => a + Math.random()*(b-a);
+
+function fall(top){
+  return {k:'f', x:rnd(0,W), y: top ? rnd(-H,0) : rnd(-40,H), s:rnd(9,26), vy:rnd(.7,1.9), ph:rnd(0,6.28), sw:rnd(.4,1.1), r:rnd(-.4,.4), c:REDS[Math.random()*5|0], a:rnd(.45,.95)};
+}
+for(let i=0;i<(reduce?14:60);i++) P.push(fall(false));
+
+function burst(x,y,n=18){
+  for(let i=0;i<n;i++){
+    const an = rnd(0,6.28), sp = rnd(2,7);
+    P.push({k:'b', x, y, s:rnd(10,28), vx:Math.cos(an)*sp, vy:Math.sin(an)*sp-3, r:rnd(-.6,.6), c:REDS[Math.random()*5|0], a:1});
+  }
+}
+function tick(){
+  cx.setTransform(dpr,0,0,dpr,0,0); cx.clearRect(0,0,W,H);
+  P = P.filter(p => p.a > .02);
+  for(const p of P){
+    if(p.k==='f'){
+      p.y += p.vy; p.ph += .02; p.x += Math.sin(p.ph)*p.sw;
+      if(p.y > H+40){ p.y = -40; p.x = rnd(0,W); }
+    } else {
+      p.x += p.vx; p.y += p.vy; p.vy += .14; p.a -= .012;
+    }
+    cx.save();
+    cx.translate(p.x,p.y); cx.rotate(p.r + (p.k==='f' ? Math.sin(p.ph)*.4 : 0));
+    cx.scale(p.s/200,p.s/200); cx.translate(-100,-90);
+    cx.globalAlpha = Math.max(0,p.a); cx.fillStyle = p.c; cx.fill(HP);
+    cx.restore();
+  }
+  requestAnimationFrame(tick);
+}
+tick();
+
+/* ---------- فتح الظرف ---------- */
+const intro = document.getElementById('intro'), env = document.getElementById('env');
+let opened = false;
+function openIt(){
+  if(opened) return; opened = true;
+  env.classList.add('open');
+  document.getElementById('openBtn').classList.add('hide');
+  setTimeout(() => { intro.classList.add('gone'); document.body.classList.add('play'); burst(W/2,H/2.4,30); typeMsg(MSGS[0]); }, 1900);
+}
+env.onclick = openIt;
+document.getElementById('openBtn').onclick = openIt;
+
+/* ---------- الاسم والرسالة ---------- */
+// document.getElementById('to').textContent = NAME ? 'إلى ' + NAME : 'إلى';  
+const letter = document.getElementById('letter');
+let mi = 0, typing = 0;
+function typeMsg(t){
+  clearInterval(typing); letter.textContent = ''; let i = 0;
+  typing = setInterval(() => { letter.textContent = t.slice(0,++i); if(i >= t.length) clearInterval(typing); }, 45);
+}
+document.getElementById('next').onclick = e => { mi = (mi+1) % MSGS.length; typeMsg(MSGS[mi]); burst(e.clientX||W/2, e.clientY||H/2, 8); };
+
+/* ---------- القلب: اضغط عليه ---------- */
+const MILE = [
+  {e:'♥',  t:'عشر ضغطات! 🎉',  s:'كده عرفت إنك بتحبني ❤️'},
+  {e:'💝', t:'عشرين! 😳',      s:'أنا اتأكدت خلاص 😌'},
+  {e:'💞', t:'تلاتين! 🔥',      s:'أنا مش هزهق لو إنتي مزهقتيش'},
+  {e:'💘', t:' أربعين! ✨', s:'شكلك مش هتبطّلي 😄'},
+  {e:'💌', t:'خمسين ضغطة! 🔥',      s:'كل ده حب، وأنا مصدّق 😌'},
+];
+// بعد الخمسين: رسالة مختلفة كل مرة
+const MORE = [
+  {e:'👑', s:'إنتي رسميًا أسطورة الضغط 😎'},
+  {e:'💗', s:'إيدك مش بتتعب؟ 😂'},
+  {e:'🥰', s:'كل ضغطة بتفرّحني أكتر'},
+  {e:'💖', s:'قلبي بيدق معاكي 💓'},
+  {e:'😍', s:'أحلى واحدة ضغطت على قلب في التاريخ'},
+  {e:'🌹', s:'وردة عشانك على الضغط ده'},
+  {e:'🔥', s:'إنتي بتكسري الأرقام القياسية'},
+  {e:'💌', s:'كل ده حب، وأنا مصدّق 😌'},
+  {e:'✨', s:'كمّلي، القلب لسه عنده كتير'}
+];
+function celebrate(i){
+  const m = MILE[i] || Object.assign({t:((i+1)*10) + ' ضغطة! 🎉'}, MORE[(i - MILE.length) % MORE.length]);
+  const w = document.getElementById('win');
+  w.querySelector('.big').textContent = m.e;
+  w.querySelector('.wt').textContent = m.t;
+  w.querySelector('.ws').textContent = m.s;
+  w.classList.remove('hide');
+  const n = Math.min(8 + i*2, 16);
+  for(let k=0;k<n;k++) setTimeout(() => { burst(rnd(40,W-40), rnd(H*.15,H*.75), 34); ring(rnd(40,W-40), rnd(H*.2,H*.7)); }, k*240);
+}
+document.getElementById('winBtn').onclick = () => document.getElementById('win').classList.add('hide');
+let taps = 0;
+function ring(x,y){
+  const d = document.createElement('div'); d.className = 'ring';
+  d.style.left = x+'px'; d.style.top = y+'px';
+  document.body.appendChild(d); setTimeout(() => d.remove(), 800);
+}
+const heart = document.getElementById('heart');
+heart.onclick = e => {
+  taps++; burst(e.clientX, e.clientY, 14);
+  const svg = heart.querySelector('svg');
+  svg.classList.remove('a0','a1','a2','a3');
+  void svg.getBoundingClientRect();
+  svg.classList.add('a' + (taps % 4));
+  ring(e.clientX, e.clientY);
+  if(taps % 10 === 0) celebrate(taps / 10 - 1);
+  document.getElementById('count').textContent = 'ضغطت ' + taps + (taps === 1 ? ' مرة' : taps === 2 ? ' مرتين' : taps < 11 ? ' مرات' : ' مرة') + ' ♥';
+};
+
+/* ---------- مقياس الحب ---------- */
+const meter = document.getElementById('meter'), mt = document.getElementById('meterTxt');
+meter.oninput = () => {
+  const v = +meter.value;
+  heart.style.scale = 1 + v/250;
+  mt.textContent = v < 30 ? 'شوية بس؟ 🥲' : v < 60 ? 'كده أحسن' : v < 90 ? 'قربنا ♥' : v < 100 ? 'لسه شوية...' : 'أكتر من كده كمان 💗';
+  if(v === 100){ burst(W/2, H/2, 40); }
+};
+
+/* ---------- أيوه / لأ ---------- */
+const no = document.getElementById('no'), yes = document.getElementById('yes'), ynTxt = document.getElementById('ynTxt');
+const NO_MSGS = [
+  'جرّبي تاني 😏',
+  'إيدك مش هتلحقه 😄',
+  'متأكدة؟ 🤨',
+  'الزرار ده بيهرب منك',
+  'فكّري تاني... 💭',
+  'كده هزعل والله 🥺',
+  'خلاص اضغطي أيوه 😌'
+];
+let dodges = 0, curX = 0, curY = 0, lastDodge = 0;
+function dodge(e){
+  e.preventDefault();
+  const now = performance.now();
+  if(now - lastDodge < 350) return;   // منع التكرار (hover + press + click)
+  lastDodge = now;
+  // نقيس مكان الزرار الأصلي بعد إلغاء الإزاحة والأنيميشن مؤقتًا
+  no.style.transition = 'none'; no.style.transform = 'none';
+  const base = no.getBoundingClientRect();
+  no.style.transform = 'translate(' + curX + 'px,' + curY + 'px)';
+  void no.offsetWidth;
+  no.style.transition = '';
+  const y = yes.getBoundingClientRect(), pad = 16;
+  // حدود آمنة: بعيد عن أطراف الشاشة
+  const mx = 34, my = 90;
+  const xMin = Math.max(-260, mx - base.left), xMax = Math.min(260, W - mx - base.right);
+  const yMin = Math.max(-170, my - base.top),  yMax = Math.min(170, H - my - base.bottom);
+  // توزيع متمركز: الأغلب في النص، والأطراف نادرة
+  const pick = (a,b) => a > b ? 0 : (rnd(a,b) + rnd(a,b)) / 2;
+  let best = {dx:0, dy:0, d:-1};
+  for(let i=0;i<40;i++){
+    const dx = pick(xMin,xMax), dy = pick(yMin,yMax);
+    const L = base.left+dx, R = base.right+dx, T = base.top+dy, B = base.bottom+dy;
+    const hit = L < y.right+pad && R > y.left-pad && T < y.bottom+pad && B > y.top-pad;
+    if(hit) continue;
+    const d = Math.hypot(dx-curX, dy-curY);
+    if(d > best.d) best = {dx, dy, d};
+    if(d >= (i < 25 ? 140 : 70)) { best = {dx, dy, d}; break; }
+  }
+  curX = best.dx; curY = best.dy;
+  no.style.transform = 'translate(' + curX + 'px,' + curY + 'px)';
+  ynTxt.textContent = NO_MSGS[dodges % NO_MSGS.length];
+  dodges++;
+}
+no.addEventListener('pointerenter', dodge);
+no.addEventListener('pointerdown', dodge);
+no.addEventListener('click', dodge);
+yes.onclick = e => {
+  curX = 0; curY = 0; no.style.transform = 'translate(0px,0px)';   // "لأ" يرجع مكانه
+  ynTxt.textContent = 'الإجابة الصح 😌❤️';
+  for(let i=0;i<5;i++) setTimeout(() => burst(rnd(60,W-60), rnd(H*.2,H*.7), 26), i*180);
+};
+
+/* ---------- ضغطة في أي مكان = قلوب ---------- */
+document.addEventListener('pointerdown', e => {
+  if(!opened || e.target.closest('button,input')) return;
+  burst(e.clientX, e.clientY, 10);
+});
+</script>
+</body>
+</html>
